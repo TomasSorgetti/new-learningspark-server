@@ -16,7 +16,7 @@ const getUser = async (req, res) => {
     if (!user) {
       return sendErrorResponse(res, "Usuario no encontrado", 404);
     }
-    sendSuccessResponse(res, "Usuario encontrado", { user });
+    sendSuccessResponse(res, 200, "Usuario encontrado", { user });
   } catch (error) {
     sendErrorResponse(res, error.message, error.status);
   }

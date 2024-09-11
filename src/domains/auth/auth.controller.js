@@ -13,7 +13,7 @@ const login = async (req, res) => {
   const { email, password, persist } = req.body;
   try {
     const data = await service.login(res, { email, password, persist });
-    sendSuccessResponse(res, "Login success", data);
+    sendSuccessResponse(res, 200, "Login success", data);
   } catch (error) {
     sendErrorResponse(res, error.message, error.status);
   }
@@ -28,7 +28,7 @@ const register = async (req, res) => {
   const { name, lastname, email, password } = req.body;
   try {
     const data = await service.register({ name, lastname, email, password });
-    sendSuccessResponse(res, "Register success", data);
+    sendSuccessResponse(res, 200, "Register success", data);
   } catch (error) {
     sendErrorResponse(res, error.message, error.status);
   }
@@ -44,7 +44,7 @@ const verifyUser = async (req, res) => {
 
   try {
     const data = await service.verifyUser({ email, code });
-    sendSuccessResponse(res, "Verify success", data);
+    sendSuccessResponse(res, 200, "Verify success", data);
   } catch (error) {
     sendErrorResponse(res, error.message, error.status);
   }
@@ -53,7 +53,7 @@ const verifyUser = async (req, res) => {
 const logout = async (req, res) => {
   try {
     const data = await service.logout(res);
-    sendSuccessResponse(res, "Logout success", data);
+    sendSuccessResponse(res, 200, "Logout success", data);
   } catch (error) {
     sendErrorResponse(res, error.message, error.status);
   }
@@ -63,7 +63,7 @@ const logout = async (req, res) => {
 const refresh = async (req, res) => {
   try {
     const data = await service.refresh();
-    sendSuccessResponse(res, "Refresh success", data);
+    sendSuccessResponse(res, 200, "Refresh success", data);
   } catch (error) {
     sendErrorResponse(res, error.message, error.status);
   }

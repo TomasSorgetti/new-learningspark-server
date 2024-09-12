@@ -1,7 +1,6 @@
 const db = require("./connection");
 
 const createRoles = async () => {
-  console.log("CREATING ROLES");
 
   const roles = [
     { name: "user" },

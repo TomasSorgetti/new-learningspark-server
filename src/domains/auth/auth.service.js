@@ -55,8 +55,8 @@ const register = async ({ name, lastname, email, password }) => {
   lastname = lastname.trim();
   email = email.trim();
   password = password.trim();
-  //todo si el usuario no verifica el codigo, pero intenta crearse denuevo la cuenta, deberia manerjarlo 
-  //todo make roles 
+  //todo si el usuario no verifica el codigo, pero intenta crearse denuevo la cuenta, deberia manerjarlo
+  //todo make roles
   // find user if exists, if not, create
   const foundUser = await db.user.findOne({ where: { email } });
   if (foundUser) throw new HttpError(409, "User already exists");
@@ -73,9 +73,12 @@ const register = async ({ name, lastname, email, password }) => {
     verificationCode: code,
     userVerified: false,
   });
+  const userRole = await db.role.findOne({ where: { name: "user" } });
+  await user.addRole(userRole);
   // send email
   await validateEmail({ name, lastname, email, code });
   // return simplified user
+  //TODO return user without validation code
   const userSimplified = { ...user.dataValues };
   delete userSimplified.password;
   return userSimplified;
@@ -87,6 +90,7 @@ const register = async ({ name, lastname, email, password }) => {
  * @returns
  */
 const verifyUser = async ({ email, code }) => {
+  //TODO convert code to number
   // find user
   const user = await db.user.findOne({ where: { email, userVerified: false } });
   if (!user) throw new HttpError(404, "User not found");

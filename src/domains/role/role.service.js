@@ -1,7 +1,9 @@
 const db = require("../../database/connection");
+const { HttpError } = require("../../utils/customErrors");
 
 const getAllRoles = async () => {
   const roles = await db.role.findAll();
+  if (roles.length === 0) throw new HttpError(404, "Roles not found");
   return roles;
 };
 
